@@ -14,16 +14,16 @@ const Heroes = () => {
 		setHeroes,
 	] = useState([]);
 
-    // Need to create a Dynamic ID
+	// Need to create a Dynamic ID
 	useEffect(() => {
-		fetch(`http://superheroapi.com/api/932280013931910/1`).then(response => response.json()).then(
-			result => {
-				console.log('Result: ', result);
+		fetch(`http://superheroapi.com/api/932280013931910/${id}`).then(response => response.json()).then(
+			data => {
+				console.log('data: ', data);
 				setIsLoaded(true);
-				setHeroes(result);
+				setHeroes(heroes);
 			},
 			error => {
-                console.log('Error: ', error)
+				console.log('Error: ', error);
 				setIsLoaded(true);
 				setError(error);
 			},
@@ -40,7 +40,7 @@ const Heroes = () => {
 		return (
 			<div className='Heroes'>
 				<h1>Heroes:</h1>
-                {console.log("Heroes: ", heroes)}
+				{console.log('Heroes: ', heroes)}
 				{/* <ul>
                     {heroes.map(hero => (
                         <li>
@@ -49,7 +49,7 @@ const Heroes = () => {
                         </li>
                     ))}
                 </ul> */}
-                <h2>{heroes.name}</h2>
+				<h2>{heroes.name}</h2>
 			</div>
 		);
 	}
