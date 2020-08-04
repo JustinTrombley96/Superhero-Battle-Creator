@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Hero from './Hero'
 
 const Heroes = () => {
 	const [
@@ -14,13 +15,19 @@ const Heroes = () => {
 		setHeroes,
 	] = useState([]);
 
+	const [page, setPage] = useState(1)
+
+	const loadMoreHeroes = () => {
+		setPage(page + 1)
+	}
+
 	// Need to create a Dynamic ID
 	useEffect(() => {
-		fetch(`http://superheroapi.com/api/932280013931910/${id}`).then(response => response.json()).then(
+		fetch(`http://superheroapi.com/api/932280013931910/${page}`).then(response => response.json()).then(
 			data => {
 				console.log('data: ', data);
 				setIsLoaded(true);
-				setHeroes(heroes);
+				setHeroes(data);
 			},
 			error => {
 				console.log('Error: ', error);
@@ -28,7 +35,7 @@ const Heroes = () => {
 				setError(error);
 			},
 		);
-	}, []);
+	}, [page]);
 
 	if (error) {
 		return <div>Error: {error.message}</div>;
@@ -40,16 +47,12 @@ const Heroes = () => {
 		return (
 			<div className='Heroes'>
 				<h1>Heroes:</h1>
-				{console.log('Heroes: ', heroes)}
-				{/* <ul>
-                    {heroes.map(hero => (
-                        <li>
-                            {console.log("Map: ", hero)}
-                            {hero.name}
-                        </li>
-                    ))}
-                </ul> */}
-				<h2>{heroes.name}</h2>
+				{/* {console.log('Before Map: ', heroes)} */}
+				{/* {heroes.map((hero) => (
+					console.log("After Map: ", hero),
+					<h1>{hero.name}</h1>
+				))} */}
+				<Hero heroes={heroes}/>			
 			</div>
 		);
 	}
