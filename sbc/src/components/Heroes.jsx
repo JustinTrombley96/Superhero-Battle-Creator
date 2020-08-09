@@ -52,7 +52,8 @@ const Heroes = () => {
 					console.log("After Map: ", hero),
 					<h1>{hero.name}</h1>
 				))} */}
-				<Hero heroes={heroes}/>			
+				<Hero heroes={heroes}/>		
+				<button onClick={loadMoreHeroes}>Next Hero</button>	
 			</div>
 		);
 	}
